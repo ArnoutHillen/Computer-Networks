@@ -3,7 +3,7 @@ package client;
 import java.io.*;
 import java.net.*;
 
-public class client {
+public class Client {
 	
 	public static void main(String[] argsv) throws Exception {
 		
