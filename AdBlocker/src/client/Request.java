@@ -12,8 +12,9 @@ public class Request {
     private byte[] data;
     private Map<String, String> head = new HashMap<>();
 	
-    public void request(String method, URL url,
-    		String httpVersion, String data, Map headers) {
+    public Request(String httpCommand, URL url,
+    		String httpVersion, String data) {
+    	
         this.url = url;
         this.httpVersion = httpVersion;
         this.data = data.getBytes();
@@ -21,8 +22,16 @@ public class Request {
         // Check for HTTP version. 
         // HTTP/1.1 requires the host field.
         if (this.httpVersion.equals("1.1")) {
-            this.head.put("Host", this.url.getHost() + ":" + this.url.getPort());
+            this.head.put("Host", this.url.getHost() + 
+            		":" + this.url.getPort());
         }
+        
+        // Content-length required if data present.
+        if (this.data.length > 0) {
+            this.head.put("Content-Length", 
+            		Integer.toString(this.data.length));
+        }
+        
     }
     
     public String getMethod() {
@@ -53,7 +62,7 @@ public class Request {
         result.append(this.method)
                 .append(" ");
         
-        if (! this.url.getPath().startsWith("/"))
+        if (!this.url.getPath().startsWith("/"))
             result.append("/");
         
         result.append(this.url.getPath().replace(" ", "%20"))
@@ -82,6 +91,40 @@ public class Request {
                     .append("\n");
         }
         return builder;
+    }
+    
+    /**
+     * Returns the header in bytes.
+     * 
+     * @return
+     */
+    public byte[] toBytes() {
+        return concat(getHeader().getBytes(), this.data);
+    }
+
+    /**
+     *
+     * @param components
+     * @return
+     */
+    private static byte[] concat(byte[]... components) {
+        int length = 0;
+        for (byte[] component : components) {
+            length += component.length;
+        }
+        byte[] result = new byte[length];
+
+        for (int i = 0; i < components.length; i++) {
+            if (i == 0) {
+                System.arraycopy(components[0], 0, 
+                		result, 0, components[0].length);
+            } else {
+                System.arraycopy(components[i], 0, 
+                		result, components[i - 1].length, 
+                		components[i].length);
+            }
+        }
+        return result;
     }
     
 }
