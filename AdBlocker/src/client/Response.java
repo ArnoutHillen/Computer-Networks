@@ -12,6 +12,7 @@ import java.util.*;
 
 import java.io.*;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -77,9 +78,9 @@ public class Response {
                 }
 
                 if (this.getResponseCode() != 200) {
-                    if (this.getResponseCode() == 404) {
+                    //if (this.getResponseCode() == 404) {
                     	// System.out.println("Failed to load resource; the server responded with 404 for file " + this.getUrl());
-                    }
+                    //}
                     this.success = false;
                 } else {
                     this.success = true;
@@ -138,6 +139,27 @@ public class Response {
         return success;
     }
     
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append(this.getResponseCode())
+                .append(" ")
+                .append(this.getReasonPhrase())
+                .append("\n");
+        for (Map.Entry<String, String> header : headers.entrySet()) {
+            result.append(header.getKey())
+                    .append(": ")
+                    .append(header.getValue())
+                    .append("\n");
+        }
+
+
+        result.append("\n");
+        if (this.getData() != null)
+            result.append(new String(this.getData(), StandardCharsets.ISO_8859_1))
+                    .append("\n");
+        return result.toString();
+    }
     
     
     

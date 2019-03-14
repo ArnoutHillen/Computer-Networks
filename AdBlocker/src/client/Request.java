@@ -1,6 +1,7 @@
 package client;
 
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.io.*;
 
@@ -69,9 +70,9 @@ public class Request {
                 .append(" ")
                 .append("HTTP/")
                 .append(this.httpVersion)
-                .append("\n");
+                .append("\r\n");
         
-        appendHead(result).append("\n");
+        appendHead(result).append("\r\n");
 
         return result.toString();
     }
@@ -88,7 +89,7 @@ public class Request {
             builder.append(entry.getKey())
                     .append(": ")
                     .append(entry.getValue())
-                    .append("\n");
+                    .append("\r\n");
         }
         return builder;
     }
@@ -99,7 +100,8 @@ public class Request {
      * @return
      */
     public byte[] toBytes() {
-        return concat(getHeader().getBytes(), this.data);
+        return concat(getHeader().getBytes(StandardCharsets.ISO_8859_1),
+        		this.data);
     }
 
     /**
