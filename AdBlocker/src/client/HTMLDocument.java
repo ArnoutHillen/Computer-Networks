@@ -50,7 +50,7 @@ public class HTMLDocument {
     private void removeExisting() {
         String currentDir = System.getProperty("user.dir");
         // Java deals with OS-specific slashes. "File.seperator" not needed. 
-        // JVM translates "/" to the corresponding seperator depending on your OS.
+        // JVM translates "/" to the corresponding separator depending on your OS.
         File file = new File(currentDir + 
         		"/client-output/" + response.getUrl().getHost() + 
         		"/");
