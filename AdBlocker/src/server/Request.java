@@ -53,7 +53,7 @@ public class Request {
                 if (this.method == HTTPMethod.HEAD)
                     this.messageEnded = true;
 
-                // If there is'nt a header "content-length", there is no body, so the message has ended.
+                // If there isn't a header "content-length", there is no body, so the message has ended.
                 if (!this.headers.containsKey("content-length")) {
                     this.contentLength = 0;
                     this.messageEnded = true;

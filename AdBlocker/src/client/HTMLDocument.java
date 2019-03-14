@@ -102,9 +102,16 @@ public class HTMLDocument {
 
         for (Element image: images) {
             String src = image.attr("src").replace(" ", "%20");
+            System.out.println(src);
             URI uri = new URI(src);
             image.attr("src", uri.getPath());
-            uris.add(uri);
+            System.out.println(uri.getPath());
+            // filter the ads out.
+            if (!uri.getPath().contains("ad1") &&
+            		!uri.getPath().contains("ad2") &&
+            		!uri.getPath().contains("ad3")){
+            	uris.add(uri);
+            }
         }
 
         for (URI uri : uris) {
