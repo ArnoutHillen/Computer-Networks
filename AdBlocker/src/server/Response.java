@@ -15,9 +15,9 @@ import java.util.*;
  */
 public class Response {
 
-    private static final File NOT_FOUND_FILE = new File(System.getProperty("user.dir") + "/res/404.html");
-    private static final File BAD_REQUEST_FILE = new File(System.getProperty("user.dir") + "/res/400.html");
-    private static final String SERVER_ROOT = "server-root";
+    private static final File NOT_FOUND_FILE = new File(System.getProperty("user.dir") + "/404.html");
+    private static final File BAD_REQUEST_FILE = new File(System.getProperty("user.dir") + "/400.html");
+    private static final String SERVER_ROOT = "";
     private static final String PUT_DIRECTORY = "server-put";
     private static final String POST_DIRECTORY = "server-post";
 
@@ -28,7 +28,8 @@ public class Response {
     private byte[] responseData;
 
     /**
-     * The constructor for the request class. It requires the (server) request. The actual handling of the request happens
+     * The constructor for the request class. It requires the (server) request. 
+     *  The actual handling of the request happens
      * in the create() method.
      * @param request
      */
@@ -53,7 +54,8 @@ public class Response {
         }
 
         String currentDir = System.getProperty("user.dir");
-        File file = new File(currentDir + "/" + SERVER_ROOT + "/" + request.getRequestedFile().getPath());
+        File file = new File(currentDir + "/" +
+        					SERVER_ROOT + "/" + request.getRequestedFile().getPath());
 
 
         switch (request.getMethod()) {
@@ -66,6 +68,8 @@ public class Response {
                     } else {
                         if (!file.exists()) {
                             file = NOT_FOUND_FILE;
+                            System.out.println("file not found");
+                            System.out.println(file);
                             this.responseCode = ResponseCode.NOT_FOUND;
                         } else {
                             this.responseCode = ResponseCode.OK;

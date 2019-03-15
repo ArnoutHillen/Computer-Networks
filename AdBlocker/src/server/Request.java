@@ -59,7 +59,7 @@ public class Request {
                     this.messageEnded = true;
                 }
 
-                // Else, if the content-length equals 0, there is no body, sot he message has ended.
+                // Else, if the content-length equals 0, there is no body, so he message has ended.
                 else if (Integer.parseInt(this.headers.get("content-length")) == 0) {
                     this.messageEnded = true;
                     this.contentLength = 0;

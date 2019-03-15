@@ -106,12 +106,9 @@ public class HTMLDocument {
             URI uri = new URI(src);
             image.attr("src", uri.getPath());
             System.out.println(uri.getPath());
-            // filter the ads out.
-            if (!uri.getPath().contains("ad1") &&
-            		!uri.getPath().contains("ad2") &&
-            		!uri.getPath().contains("ad3")){
-            	uris.add(uri);
-            }
+            
+            uris.add(uri);
+            //}
         }
 
         for (URI uri : uris) {
@@ -129,6 +126,7 @@ public class HTMLDocument {
 
     /**
      * saves the URL when there is no hostname.
+     * 
      * @param url
      * @throws Exception
      */
@@ -171,6 +169,7 @@ public class HTMLDocument {
 
     /**
      * Saves the given data in the given file.
+     * 
      * @param file
      * @param data
      * @throws IOException
