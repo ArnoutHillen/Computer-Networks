@@ -36,11 +36,14 @@ public class Request {
             if (line.trim().equals(""))
                 return;
             String[] components = line.split(" ");
+            // httpMethod is the first component
             this.method = HTTPMethod.valueOf(components[0].trim());
+            // the uri is the second component
             if (components[1].equals("/"))
                 this.requestedFile = new URI("index.html");
             else
                 this.requestedFile = new URI(components[1]);
+            // HTTP/1.1 is the third component.
             this.version = components[2].split("/")[1].trim();
             if (! this.version.equals("1.0") && ! this.version.equals("1.1"))
                 throw new IllegalArgumentException("Illegal version given");

@@ -254,7 +254,9 @@ public class Response {
 
         if (file.exists()) {
             this.headers.put("Content-Length", Long.toString(file.length()));
+            // split on "//" or on a dot "." 
             String[] components = file.getPath().split("\\.");
+            // last component is the file type
             String fileType = components[components.length - 1];
             switch (fileType) {
                 case "html":
@@ -320,6 +322,7 @@ public class Response {
                     .append("\r\n");
         }
         result.append("\r\n");
+        System.out.println(result.toString());
         return result.toString();
     }
 

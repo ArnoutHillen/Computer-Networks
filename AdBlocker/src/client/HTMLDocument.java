@@ -105,10 +105,15 @@ public class HTMLDocument {
             System.out.println(src);
             URI uri = new URI(src);
             image.attr("src", uri.getPath());
+            System.out.println(uri.toString());
             System.out.println(uri.getPath());
             
+           // filter the ads out.
+           if (!uri.getPath().contains("ad1") &&
+        		!uri.getPath().contains("ad2") &&
+            	!uri.getPath().contains("ad3")){
             uris.add(uri);
-            //}
+            }
         }
 
         for (URI uri : uris) {

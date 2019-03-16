@@ -15,7 +15,7 @@ public class Server {
 		int portNumber = Integer.parseInt(argv[0]);
 		ServerSocket socket = new ServerSocket(portNumber);
 		System.out.println("Listening on port " + portNumber);
-
+		
 		// Launch new thread for every client
 		while (true) {
 			Socket connectionSocket = socket.accept();
